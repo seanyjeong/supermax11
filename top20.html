@@ -23,24 +23,42 @@
       text-overflow: ellipsis;
     }
     th { background-color: #f2f2f2; }
+    .update-button {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .update-button:hover {
+      background-color: #45a049;
+    }
   </style>
- <script>
+  <script>
     async function fetchData() {
       const response = await fetch('https://script.google.com/macros/s/AKfycbwIhwAWuAXQ04XjMdUem7PllWsS-lj1jenbwTWEuIQO6-7AWtdqnVDmDKIG8rjN4V0Gcg/exec');
       const data = await response.json();
-  
+
       const tableBody = document.getElementById('table-body');
+      tableBody.innerHTML = ''; // Clear existing data
+
       let rank = 1;
       let lastScore = null;
       let count = 0;
-  
+
       for (let i = 0; i < data.length && count < 20; i++) {
         const score = parseInt(data[i][13], 10);
-  
+
         if (lastScore !== null && lastScore !== score) {
           rank = count + 1;
         }
-  
+
         lastScore = score;
         count++;
         
@@ -57,13 +75,13 @@
         tableBody.appendChild(newRow);
       }
     }
-  
+
     window.onload = fetchData;
   </script>
-  
 </head>
 <body>
   <h1>슈퍼맥스11 TOPMAX 20</h1>
+  <button class="update-button" onclick="fetchData()">업데이트</button>
   <table>
     <thead>
       <tr>
