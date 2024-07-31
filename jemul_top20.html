@@ -52,16 +52,26 @@
         const maleTableBody = document.getElementById('male-table-body');
         
         maleTableBody.innerHTML = '';
+        let lastRecord = null;
+        let rank = 1;
+        let rankCount = 1;
 
         data.forEach((row, index) => {
+          const currentRecord = row.longjump_record;
+          if (lastRecord !== currentRecord) {
+            rank = rankCount;
+          }
+          lastRecord = currentRecord;
+          rankCount++;
+
           maleTableBody.innerHTML += `
             <tr>
-              <td>${index + 1}</td>
+              <td>${rank}</td>
               <td>${row.exam_number}</td>
               <td>${row.location}</td>
               <td>${row.name}</td>
               <td>${row.grade}</td>
-              <td>${row.longjump_record}</td>
+              <td>${currentRecord}</td>
             </tr>
           `;
         });
@@ -77,16 +87,26 @@
         const femaleTableBody = document.getElementById('female-table-body');
         
         femaleTableBody.innerHTML = '';
+        let lastRecord = null;
+        let rank = 1;
+        let rankCount = 1;
 
         data.forEach((row, index) => {
+          const currentRecord = row.longjump_record;
+          if (lastRecord !== currentRecord) {
+            rank = rankCount;
+          }
+          lastRecord = currentRecord;
+          rankCount++;
+
           femaleTableBody.innerHTML += `
             <tr>
-              <td>${index + 1}</td>
+              <td>${rank}</td>
               <td>${row.exam_number}</td>
               <td>${row.location}</td>
               <td>${row.name}</td>
               <td>${row.grade}</td>
-              <td>${row.longjump_record}</td>
+              <td>${currentRecord}</td>
             </tr>
           `;
         });
