@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>슈퍼맥스11 TOPMAX 20</title>
+  <title>슈퍼맥스11 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
     h1 { text-align: center; }
@@ -42,18 +42,18 @@
   </style>
   <script>
     async function fetchData() {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwIhwAWuAXQ04XjMdUem7PllWsS-lj1jenbwTWEuIQO6-7AWtdqnVDmDKIG8rjN4V0Gcg/exec');
+      const response = await fetch('https://supermax.kr/top50');
       const data = await response.json();
 
       const tableBody = document.getElementById('table-body');
-      tableBody.innerHTML = ''; // Clear existing data
+      tableBody.innerHTML = ''; // 기존 데이터를 지움
 
       let rank = 1;
       let lastScore = null;
       let count = 0;
 
-      for (let i = 0; i < data.length && count < 20; i++) {
-        const score = parseInt(data[i][13], 10);
+      for (let i = 0; i < data.length && count < 50; i++) {
+        const score = data[i].total_score;
 
         if (lastScore !== null && lastScore !== score) {
           rank = count + 1;
@@ -65,12 +65,12 @@
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
           <td>${rank}</td>
-          <td>${data[i][0]}</td>
-          <td>${data[i][1]}</td>
-          <td>${data[i][2]}</td>
-          <td>${data[i][3]}</td>
-          <td>${data[i][4]}</td>
-          <td>${data[i][13]}</td>
+          <td>${data[i].exam_number}</td>
+          <td>${data[i].location}</td>
+          <td>${data[i].name}</td>
+          <td>${data[i].gender}</td>
+          <td>${data[i].grade}</td>
+          <td>${data[i].total_score}</td>
         `;
         tableBody.appendChild(newRow);
       }
@@ -80,7 +80,7 @@
   </script>
 </head>
 <body>
-  <h1>슈퍼맥스11 TOPMAX 20</h1>
+  <h1>슈퍼맥스11 TOP 50</h1>
   <button class="update-button" onclick="fetchData()">업데이트</button>
   <table>
     <thead>
