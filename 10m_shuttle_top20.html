@@ -57,7 +57,7 @@
         let rankCount = 1;
 
         data.forEach((row, index) => {
-          const currentRecord = row.ten_meter_shuttle_record;
+          const currentRecord = row.shuttle_record;  // 필드 이름 수정
           if (lastRecord !== currentRecord) {
             rank = rankCount;
           }
@@ -92,7 +92,7 @@
         let rankCount = 1;
 
         data.forEach((row, index) => {
-          const currentRecord = row.ten_meter_shuttle_record;
+          const currentRecord = row.shuttle_record;  // 필드 이름 수정
           if (lastRecord !== currentRecord) {
             rank = rankCount;
           }
