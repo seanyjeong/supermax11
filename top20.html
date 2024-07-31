@@ -6,13 +6,14 @@
   <title>슈퍼맥스11 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; }
+    h1 { text-align: center; font-size: 24px; } /* 제목 글씨 크기 */
     table {
       width: 100%;
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
       border-collapse: collapse;
       border: 1px solid #ddd;
+      font-size: 14px; /* 테이블 글씨 크기 */
     }
     th, td {
       padding: 8px;
@@ -22,7 +23,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    th { background-color: #f2f2f2; }
+    th { background-color: #f2f2f2; font-size: 14px; } /* 테이블 헤더 글씨 크기 */
     .update-button {
       display: block;
       width: 200px;
@@ -33,7 +34,7 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      font-size: 16px;
+      font-size: 16px; /* 버튼 글씨 크기 */
       border-radius: 5px;
     }
     .update-button:hover {
@@ -46,7 +47,7 @@
       const data = await response.json();
 
       const tableBody = document.getElementById('table-body');
-      tableBody.innerHTML = ''; // 기존 데이터를 지움
+      tableBody.innerHTML = ''; // Clear existing data
 
       let rank = 1;
       let lastScore = null;
