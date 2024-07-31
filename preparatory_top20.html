@@ -60,7 +60,8 @@
         const score = row.total_score;
         const grade = row.grade;
 
-        if (grade === 1 || grade === 2) {
+        // 학년이 문자열 '1'이나 '2'일 때만 처리
+        if (grade === '1' || grade === '2') {
           if (lastScore !== score) {
             rank = count + 1;
           }
