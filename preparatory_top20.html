@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>슈퍼맥스11 예비반 TOP MAX 20</title>
+  <title>슈퍼맥스11 예비반 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; }
+    h1 { text-align: center; font-size: 24px; }
     .table-container { 
       margin: 0 auto;
       width: 100%;
@@ -16,6 +16,7 @@
       width: 100%;
       border-collapse: collapse;
       border: 1px solid #ddd;
+      font-size: 14px; /* 테이블 글씨 크기 */
     }
     th, td {
       padding: 8px;
@@ -35,7 +36,7 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      font-size: 16px;
+      font-size: 16px; /* 버튼 글씨 크기 */
       border-radius: 5px;
     }
     .update-button:hover {
@@ -45,21 +46,21 @@
   </style>
   <script>
     async function fetchData() {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwIhwAWuAXQ04XjMdUem7PllWsS-lj1jenbwTWEuIQO6-7AWtdqnVDmDKIG8rjN4V0Gcg/exec');
+      const response = await fetch('https://supermax.kr/preparatoryTop50');
       const data = await response.json();
 
       const tableBody = document.getElementById('table-body');
-      tableBody.innerHTML = ''; // 기존 데이터 삭제
+      tableBody.innerHTML = ''; // 기존 데이터를 지움
 
-      let rank = 0;
+      let rank = 1;
       let lastScore = null;
       let count = 0;
 
       data.forEach(row => {
-        const score = parseInt(row[13], 10);
-        const grade = parseInt(row[4], 10); // Assuming E column (index 4) is for grade
+        const score = row.total_score;
+        const grade = row.grade;
 
-        if ((grade === 1 || grade === 2) && count < 20) {
+        if (grade === 1 || grade === 2) {
           if (lastScore !== score) {
             rank = count + 1;
           }
@@ -69,10 +70,10 @@
           tableBody.innerHTML += `
             <tr>
               <td>${rank}</td>
-              <td>${row[0]}</td>
-              <td>${row[1]}</td>
-              <td>${row[2]}</td>
-              <td>${row[3]}</td>
+              <td>${row.exam_number}</td>
+              <td>${row.location}</td>
+              <td>${row.name}</td>
+              <td>${row.gender}</td>
               <td>${grade}</td>
               <td>${score}</td>
             </tr>
@@ -85,7 +86,7 @@
   </script>
 </head>
 <body>
-  <h1>슈퍼맥스11 예비반 TOP MAX 20</h1>
+  <h1>슈퍼맥스11 예비반 TOP 50</h1>
   <button class="update-button" onclick="fetchData()">업데이트</button>
 
   <div class="table-container">
