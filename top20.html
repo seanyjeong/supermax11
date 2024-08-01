@@ -6,14 +6,18 @@
   <title>슈퍼맥스11 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; font-size: 24px; } /* 제목 글씨 크기 */
-    table {
+    h1 { text-align: center; font-size: 24px; }
+    .table-container {
+      margin: 0 auto;
       width: 100%;
       max-width: 800px;
-      margin: 0 auto;
+    }
+    table {
+      width: 100%;
+      margin: 0 auto; /* 테이블을 중앙으로 정렬 */
       border-collapse: collapse;
       border: 1px solid #ddd;
-      font-size: 14px; /* 테이블 글씨 크기 */
+      font-size: 14px;
     }
     th, td {
       padding: 8px;
@@ -44,7 +48,12 @@
     .rank-2 { background-color: silver; }
     .rank-3 { background-color: #cd7f32; }
     .rest-table-container {
-      margin-top: 20px; /* 간격을 위한 여백 추가 */
+      margin-top: 20px;
+    }
+    .center-title {
+      text-align: center; /* 타이틀을 중앙 정렬 */
+      margin: 20px 0; /* 타이틀과 테이블 사이에 간격 추가 */
+      font-size: 20px; /* 타이틀 글씨 크기 */
     }
   </style>
   <script>
@@ -98,7 +107,7 @@
   <button class="update-button" onclick="fetchData()">업데이트</button>
   
   <div class="table-container">
-    <h2>TOPMAX</h2>
+    <div class="center-title">TOPMAX</div> <!-- 타이틀 중앙 정렬 -->
     <table>
       <thead>
         <tr>
