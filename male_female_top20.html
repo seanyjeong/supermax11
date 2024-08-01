@@ -67,7 +67,7 @@
 
         maleData.forEach((row, index) => {
           const score = row.total_score;
-          if (lastMaleScore !== score) {
+          if (lastMaleScore !== null && lastMaleScore !== score) {
             maleRank += maleRankIncrement;
             maleRankIncrement = 1;
           } else {
@@ -89,7 +89,7 @@
 
         femaleData.forEach((row, index) => {
           const score = row.total_score;
-          if (lastFemaleScore !== score) {
+          if (lastFemaleScore !== null && lastFemaleScore !== score) {
             femaleRank += femaleRankIncrement;
             femaleRankIncrement = 1;
           } else {
