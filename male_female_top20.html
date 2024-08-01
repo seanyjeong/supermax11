@@ -47,9 +47,9 @@
   <script>
     async function fetchData() {
       try {
-        const maleResponse = await fetch('https://your-api-endpoint/overallTop50/male');
+        const maleResponse = await fetch('https://supermax.kr/overallTop50/male');
         const maleData = await maleResponse.json();
-        const femaleResponse = await fetch('https://your-api-endpoint/overallTop50/female');
+        const femaleResponse = await fetch('https://supermax.kr/overallTop50/female');
         const femaleData = await femaleResponse.json();
 
         const maleTableBody = document.getElementById('male-table-body');
