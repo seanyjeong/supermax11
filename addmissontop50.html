@@ -55,17 +55,16 @@
 
         let rank = 1;
         let lastScore = null;
-        let rankIncrement = 0;
+        let rankCount = 1;
 
-        data.forEach((row, index) => {
+        data.forEach((row) => {
           const score = row.total_score;
+
           if (lastScore !== score) {
-            rank += rankIncrement;
-            rankIncrement = 1;
-          } else {
-            rankIncrement++;
+            rank = rankCount;
           }
           lastScore = score;
+          rankCount++;
 
           tableBody.innerHTML += `
             <tr>
