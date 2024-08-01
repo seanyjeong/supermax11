@@ -40,6 +40,7 @@
     .update-button:hover {
       background-color: #45a049;
     }
+    .highlight { background-color: #FFD700; } /* 상위 3명에게 적용할 배경색 스타일 */
   </style>
   <script>
     async function fetchData() {
@@ -52,6 +53,7 @@
       let rank = 1;
       let lastScore = null;
       let count = 0;
+      let highlightCount = 0; // 하이라이트를 적용한 순위의 개수
 
       for (let i = 0; i < data.length && count < 50; i++) {
         const score = data[i].total_score;
@@ -71,8 +73,17 @@
           <td>${data[i].name}</td>
           <td>${data[i].gender}</td>
           <td>${data[i].grade}</td>
-          <td>${data[i].total_score}</td>
+          <td>${score}</td>
         `;
+
+        // 상위 3명 (동점 포함)에게만 배경색을 적용
+        if (rank <= 3) {
+          newRow.classList.add('highlight');
+          highlightCount = rank; // 마지막 하이라이트된 순위를 기록
+        } else if (highlightCount >= 3) {
+          break; // 이미 3위 이하의 모든 순위에 하이라이트를 적용한 경우 종료
+        }
+
         tableBody.appendChild(newRow);
       }
     }
