@@ -16,7 +16,7 @@
       width: 100%;
       border-collapse: collapse;
       border: 1px solid #ddd;
-      font-size: 14px; /* 테이블 글씨 크기 */
+      font-size: 14px;
     }
     th, td {
       padding: 8px;
@@ -36,13 +36,16 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      font-size: 16px; /* 버튼 글씨 크기 */
+      font-size: 16px;
       border-radius: 5px;
     }
     .update-button:hover {
       background-color: #45a049;
     }
     th { background-color: #f2f2f2; }
+    .highlighted {
+      background-color: #ffffe0; /* 강조 표시할 배경색 */
+    }
   </style>
   <script>
     async function fetchData() {
@@ -50,26 +53,34 @@
       const data = await response.json();
 
       const tableBody = document.getElementById('table-body');
-      tableBody.innerHTML = ''; // 기존 데이터를 지움
+      tableBody.innerHTML = '';
 
       let rank = 1;
       let lastScore = null;
       let count = 0;
-
-      data.forEach(row => {
+      const highlightLimit = 30;
+      let rankIncrement = 1;
+      
+      data.forEach((row) => {
         const score = row.total_score;
         const grade = row.grade;
 
-        // 학년이 문자열 '1'이나 '2'일 때만 처리
         if (grade === '1' || grade === '2') {
           if (lastScore !== score) {
             rank = count + 1;
+            rankIncrement = 1;
+          } else {
+            rankIncrement++;
           }
+
           lastScore = score;
           count++;
 
+          const isHighlighted = rank <= highlightLimit;
+          const rowClass = isHighlighted ? 'highlighted' : '';
+
           tableBody.innerHTML += `
-            <tr>
+            <tr class="${rowClass}">
               <td>${rank}</td>
               <td>${row.exam_number}</td>
               <td>${row.location}</td>
