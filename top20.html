@@ -53,10 +53,10 @@
       let rank = 1;
       let lastScore = null;
       let count = 0;
-      let highlightCount = 0; // 하이라이트를 적용한 순위의 개수
+      let highlightRank = 3;
 
-      for (let i = 0; i < data.length && count < 50; i++) {
-        const score = data[i].total_score;
+      data.forEach((row, index) => {
+        const score = row.total_score;
 
         if (lastScore !== null && lastScore !== score) {
           rank = count + 1;
@@ -68,24 +68,20 @@
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
           <td>${rank}</td>
-          <td>${data[i].exam_number}</td>
-          <td>${data[i].location}</td>
-          <td>${data[i].name}</td>
-          <td>${data[i].gender}</td>
-          <td>${data[i].grade}</td>
+          <td>${row.exam_number}</td>
+          <td>${row.location}</td>
+          <td>${row.name}</td>
+          <td>${row.gender}</td>
+          <td>${row.grade}</td>
           <td>${score}</td>
         `;
 
-        // 상위 3명 (동점 포함)에게만 배경색을 적용
-        if (rank <= 3) {
+        if (rank <= highlightRank) {
           newRow.classList.add('highlight');
-          highlightCount = rank; // 마지막 하이라이트된 순위를 기록
-        } else if (highlightCount >= 3) {
-          break; // 이미 3위 이하의 모든 순위에 하이라이트를 적용한 경우 종료
         }
 
         tableBody.appendChild(newRow);
-      }
+      });
     }
 
     window.onload = fetchData;
