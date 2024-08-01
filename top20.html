@@ -6,14 +6,11 @@
   <title>슈퍼맥스11 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1, h2 { text-align: center; font-size: 24px; } /* 제목 글씨 크기 */
-    .table-container { 
-      margin: 0 auto;
-      width: 100%;
-      max-width: 800px;
-    }
+    h1 { text-align: center; font-size: 24px; } /* 제목 글씨 크기 */
     table {
       width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
       border-collapse: collapse;
       border: 1px solid #ddd;
       font-size: 14px; /* 테이블 글씨 크기 */
@@ -46,6 +43,9 @@
     .rank-1 { background-color: gold; }
     .rank-2 { background-color: silver; }
     .rank-3 { background-color: #cd7f32; }
+    .rest-table-container {
+      margin-top: 20px; /* 간격을 위한 여백 추가 */
+    }
   </style>
   <script>
     async function fetchData() {
@@ -98,7 +98,7 @@
   <button class="update-button" onclick="fetchData()">업데이트</button>
   
   <div class="table-container">
-    <h2>T O P M A X</h2>
+    <h2>TOPMAX</h2>
     <table>
       <thead>
         <tr>
@@ -117,8 +117,7 @@
     </table>
   </div>
 
-  <div class="table-container">
-  
+  <div class="table-container rest-table-container">
     <table>
       <thead>
         <tr>
