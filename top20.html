@@ -6,14 +6,18 @@
   <title>슈퍼맥스11 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; font-size: 24px; } /* 제목 글씨 크기 */
-    table {
+    h1 { text-align: center; font-size: 24px; }
+    .table-container {
+      margin: 0 auto;
       width: 100%;
       max-width: 800px;
+    }
+    table {
+      width: 100%;
       margin: 0 auto;
       border-collapse: collapse;
       border: 1px solid #ddd;
-      font-size: 14px; /* 테이블 글씨 크기 */
+      font-size: 14px;
     }
     th, td {
       padding: 8px;
@@ -23,7 +27,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    th { background-color: #f2f2f2; font-size: 14px; } /* 테이블 헤더 글씨 크기 */
+    th { background-color: #f2f2f2; }
     .update-button {
       display: block;
       width: 200px;
@@ -34,13 +38,12 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      font-size: 16px; /* 버튼 글씨 크기 */
+      font-size: 16px;
       border-radius: 5px;
     }
     .update-button:hover {
       background-color: #45a049;
     }
-    .highlight { background-color: #FFD700; } /* 상위 3명에게 적용할 배경색 스타일 */
   </style>
   <script>
     async function fetchData() {
@@ -48,40 +51,33 @@
       const data = await response.json();
 
       const tableBody = document.getElementById('table-body');
-      tableBody.innerHTML = ''; // Clear existing data
+      tableBody.innerHTML = ''; // 기존 데이터를 지움
 
       let rank = 1;
       let lastScore = null;
-      let count = 0;
+      let rankCount = 1;
 
-      for (let i = 0; i < data.length && count < 50; i++) {
-        const score = data[i].total_score;
+      data.forEach((row) => {
+        const score = row.total_score;
 
-        if (lastScore !== null && lastScore !== score) {
-          rank = count + 1;
+        if (lastScore !== score) {
+          rank = rankCount;
         }
-
         lastScore = score;
-        count++;
-        
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-          <td>${rank}</td>
-          <td>${data[i].exam_number}</td>
-          <td>${data[i].location}</td>
-          <td>${data[i].name}</td>
-          <td>${data[i].gender}</td>
-          <td>${data[i].grade}</td>
-          <td>${data[i].total_score}</td>
+        rankCount++;
+
+        tableBody.innerHTML += `
+          <tr>
+            <td>${rank}</td>
+            <td>${row.exam_number}</td>
+            <td>${row.location}</td>
+            <td>${row.name}</td>
+            <td>${row.gender}</td>
+            <td>${row.grade}</td>
+            <td>${score}</td>
+          </tr>
         `;
-
-        // 상위 3명에게만 배경색을 적용
-        if (rank <= 3) {
-          newRow.classList.add('highlight');
-        }
-
-        tableBody.appendChild(newRow);
-      }
+      });
     }
 
     window.onload = fetchData;
@@ -90,21 +86,23 @@
 <body>
   <h1>슈퍼맥스11 TOP 50</h1>
   <button class="update-button" onclick="fetchData()">업데이트</button>
-  <table>
-    <thead>
-      <tr>
-        <th>순위</th>
-        <th>수험번호</th>
-        <th>지점</th>
-        <th>이름</th>
-        <th>성별</th>
-        <th>학년</th>
-        <th>총점</th>
-      </tr>
-    </thead>
-    <tbody id="table-body">
-      <!-- 데이터가 여기에 삽입됩니다. -->
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>순위</th>
+          <th>수험번호</th>
+          <th>지점</th>
+          <th>이름</th>
+          <th>성별</th>
+          <th>학년</th>
+          <th>총점</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- 데이터가 여기에 삽입됩니다. -->
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>
