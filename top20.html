@@ -40,6 +40,7 @@
     .update-button:hover {
       background-color: #45a049;
     }
+    .highlight { background-color: #FFD700; } /* 상위 3명에게 적용할 배경색 스타일 */
   </style>
   <script>
     async function fetchData() {
@@ -64,7 +65,7 @@
         count++;
         
         const newRow = document.createElement('tr');
-        newRow.innerHTML = 
+        newRow.innerHTML = `
           <td>${rank}</td>
           <td>${data[i].exam_number}</td>
           <td>${data[i].location}</td>
@@ -72,7 +73,13 @@
           <td>${data[i].gender}</td>
           <td>${data[i].grade}</td>
           <td>${data[i].total_score}</td>
-        ;
+        `;
+
+        // 상위 3명에게만 배경색을 적용
+        if (rank <= 3) {
+          newRow.classList.add('highlight');
+        }
+
         tableBody.appendChild(newRow);
       }
     }
