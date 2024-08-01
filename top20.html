@@ -6,18 +6,14 @@
   <title>슈퍼맥스11 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; font-size: 24px; }
-    .table-container {
-      margin: 0 auto;
-      width: 100%;
-      max-width: 800px;
-    }
+    h1 { text-align: center; font-size: 24px; } /* 제목 글씨 크기 */
     table {
       width: 100%;
-      margin: 0 auto; /* 테이블을 중앙으로 정렬 */
+      max-width: 800px;
+      margin: 0 auto;
       border-collapse: collapse;
       border: 1px solid #ddd;
-      font-size: 14px;
+      font-size: 14px; /* 테이블 글씨 크기 */
     }
     th, td {
       padding: 8px;
@@ -27,7 +23,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    th { background-color: #f2f2f2; }
+    th { background-color: #f2f2f2; font-size: 14px; } /* 테이블 헤더 글씨 크기 */
     .update-button {
       display: block;
       width: 200px;
@@ -38,22 +34,11 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      font-size: 16px;
+      font-size: 16px; /* 버튼 글씨 크기 */
       border-radius: 5px;
     }
     .update-button:hover {
       background-color: #45a049;
-    }
-    .rank-1 { background-color: gold; }
-    .rank-2 { background-color: silver; }
-    .rank-3 { background-color: #cd7f32; }
-    .rest-table-container {
-      margin-top: 20px;
-    }
-    .center-title {
-      text-align: center; /* 타이틀을 중앙 정렬 */
-      margin: 20px 0; /* 타이틀과 테이블 사이에 간격 추가 */
-      font-size: 20px; /* 타이틀 글씨 크기 */
     }
   </style>
   <script>
@@ -61,42 +46,35 @@
       const response = await fetch('https://supermax.kr/top50');
       const data = await response.json();
 
-      const topMaxTableBody = document.getElementById('topmax-table-body');
-      const restTableBody = document.getElementById('rest-table-body');
-      topMaxTableBody.innerHTML = '';
-      restTableBody.innerHTML = '';
+      const tableBody = document.getElementById('table-body');
+      tableBody.innerHTML = ''; // Clear existing data
 
       let rank = 1;
       let lastScore = null;
-      let rankCount = 1;
+      let count = 0;
 
-      data.forEach((row, index) => {
-        const score = row.total_score;
+      for (let i = 0; i < data.length && count < 50; i++) {
+        const score = data[i].total_score;
 
-        if (lastScore !== score) {
-          rank = rankCount;
+        if (lastScore !== null && lastScore !== score) {
+          rank = count + 1;
         }
+
         lastScore = score;
-        rankCount++;
-
-        const rowHTML = `
-          <tr class="${rank <= 3 ? `rank-${rank}` : ''}">
-            <td>${rank}</td>
-            <td>${row.exam_number}</td>
-            <td>${row.location}</td>
-            <td>${row.name}</td>
-            <td>${row.gender}</td>
-            <td>${row.grade}</td>
-            <td>${score}</td>
-          </tr>
-        `;
-
-        if (rank <= 3) {
-          topMaxTableBody.innerHTML += rowHTML;
-        } else {
-          restTableBody.innerHTML += rowHTML;
-        }
-      });
+        count++;
+        
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = 
+          <td>${rank}</td>
+          <td>${data[i].exam_number}</td>
+          <td>${data[i].location}</td>
+          <td>${data[i].name}</td>
+          <td>${data[i].gender}</td>
+          <td>${data[i].grade}</td>
+          <td>${data[i].total_score}</td>
+        ;
+        tableBody.appendChild(newRow);
+      }
     }
 
     window.onload = fetchData;
@@ -105,44 +83,21 @@
 <body>
   <h1>슈퍼맥스11 TOP 50</h1>
   <button class="update-button" onclick="fetchData()">업데이트</button>
-  
-  <div class="table-container">
-    <div class="center-title">TOPMAX</div> <!-- 타이틀 중앙 정렬 -->
-    <table>
-      <thead>
-        <tr>
-          <th>순위</th>
-          <th>수험번호</th>
-          <th>지점</th>
-          <th>이름</th>
-          <th>성별</th>
-          <th>학년</th>
-          <th>총점</th>
-        </tr>
-      </thead>
-      <tbody id="topmax-table-body">
-        <!-- 상위 3명 데이터가 여기에 삽입됩니다. -->
-      </tbody>
-    </table>
-  </div>
-
-  <div class="table-container rest-table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>순위</th>
-          <th>수험번호</th>
-          <th>지점</th>
-          <th>이름</th>
-          <th>성별</th>
-          <th>학년</th>
-          <th>총점</th>
-        </tr>
-      </thead>
-      <tbody id="rest-table-body">
-        <!-- 나머지 47명 데이터가 여기에 삽입됩니다. -->
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th>수험번호</th>
+        <th>지점</th>
+        <th>이름</th>
+        <th>성별</th>
+        <th>학년</th>
+        <th>총점</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- 데이터가 여기에 삽입됩니다. -->
+    </tbody>
+  </table>
 </body>
 </html>
