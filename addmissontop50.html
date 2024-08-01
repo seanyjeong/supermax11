@@ -26,6 +26,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .highlighted {
+      background-color: #f0f8ff; /* 원하는 배경색으로 변경 가능 */
+    }
     .update-button {
       display: block;
       width: 200px;
@@ -56,6 +59,7 @@
         let rank = 1;
         let lastScore = null;
         let rankCount = 1;
+        let highlightLimit = 30; // 30위까지 색을 입힘
 
         data.forEach((row) => {
           const score = row.total_score;
@@ -66,8 +70,12 @@
           lastScore = score;
           rankCount++;
 
+          // 30위까지 (또는 동점)일 경우 배경색 추가
+          const isHighlighted = rank <= highlightLimit;
+          const rowClass = isHighlighted ? 'highlighted' : '';
+
           tableBody.innerHTML += `
-            <tr>
+            <tr class="${rowClass}">
               <td>${rank}</td>
               <td>${row.exam_number}</td>
               <td>${row.location}</td>
