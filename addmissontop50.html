@@ -6,7 +6,7 @@
   <title>슈퍼맥스11 입시반 TOP 50</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; }
+    h1 { text-align: center; font-size: 2.5em; }
     .table-container { 
       margin: 0 auto;
       width: 100%;
@@ -46,6 +46,14 @@
       background-color: #45a049;
     }
     th { background-color: #f2f2f2; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+    }
+    
+    @media (max-width: 400px) {
+      h1 { font-size: 1.2em; }
+    }
   </style>
   <script>
     async function fetchAdmissionsData() {
