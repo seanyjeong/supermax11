@@ -11,6 +11,11 @@
             display: flex; 
             flex-direction: column; 
             position: relative; /* 전체 버튼 컨테이너를 상대적으로 설정 */
+            background-image: url('https://github.com/seanyjeong/supermax11/blob/main/superma11lo.png?raw=true');
+            background-size: cover; /* 이미지가 컨테이너 전체에 맞게 조정 */
+            background-repeat: no-repeat;
+            background-position: center; /* 배경 이미지를 가운데로 정렬 */
+            padding: 10px 0; /* 버튼 컨테이너에 패딩 추가 */
         }
         
         /* 공통 버튼 스타일 */
@@ -25,32 +30,8 @@
             overflow: hidden; /* 투명도 조절 시 필요 */
             font-size: 1.2em; /* 글씨 크기를 크게 설정 */
             font-weight: bold; /* 글씨를 진하게 설정 */
+            background: rgba(255, 255, 255, 0.3); /* 버튼의 배경을 투명하게 설정 */
         }
-
-        /* 버튼 이미지 및 투명도 설정 */
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://github.com/seanyjeong/supermax11/blob/main/superma11lo.png?raw=true');
-            background-size: cover;
-            background-position: center;
-            opacity: 1; /* 투명도 설정 */
-            z-index: 1; /* 텍스트 위에 이미지가 올 수 있도록 설정 */
-        }
-
-        /* 각 버튼의 위치에 맞게 배경 이미지 위치 설정 */
-        .button:nth-child(1)::before { background-position: 0 0; }
-        .button:nth-child(2)::before { background-position: 0 -100px; }
-        .button:nth-child(3)::before { background-position: 0 -200px; }
-        .button:nth-child(4)::before { background-position: 0 -300px; }
-        .button:nth-child(5)::before { background-position: 0 -400px; }
-        .button:nth-child(6)::before { background-position: 0 -500px; }
-        .button:nth-child(7)::before { background-position: 0 -600px; }
-        .button:nth-child(8)::before { background-position: 0 -700px; }
 
         /* 텍스트를 위로 올리기 위해 */
         .button span {
@@ -58,8 +39,7 @@
             z-index: 2; /* 이미지 뒤에 텍스트가 가려지지 않도록 설정 */
         }
 
-        .button:hover { background-color: #555a5f; }
-        .image-container { text-align: center; margin-top: 20px; }
+        .button:hover { background-color: rgba(85, 90, 95, 0.8); }
     </style>
 </head>
 <body>
@@ -74,6 +54,5 @@
         <a href="medicine_ball_top20.html" class="button"><span>메디신볼 TOP50</span></a>
         <a href="back_strength_top20.html" class="button"><span>배근력 TOP50</span></a>
     </div>
-   
 </body>
 </html>
